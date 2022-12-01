@@ -36,7 +36,7 @@ class PlikoenerUtilsTest {
         //assertEquals(message, substring);
 
         // [2022-11-20T16:49:39.061212700Z][PlikoenerUtils]Test debugLog
-        //FIXME the line end is depents on the os
+
 
        String regex = "\\[\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6,9}Z]\\[PlikoenerUtils]" + message + endString;
 
