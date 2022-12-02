@@ -31,6 +31,14 @@ public class HandShape {
         this.selectPoint = selectPoint;
     }
 
+    public HandShape getBetterShape() {
+        return betterShape;
+    }
+
+    public HandShape getShabbierShape() {
+        return shabbierShape;
+    }
+
     public int getScoreOfDuel(char opponentShapeShort) {
         if (opponentShapeShort == shabbierShape.getShortcode())
         {

@@ -1,2 +1,3 @@
-Day1 Part Two 23) 188 *  Plikoener
-Day2 Part Onw 30) 285 **  Plikoener
+Day01 Part Two 23) 188 *  Plikoener
+Day02 Part Onw 30) 285 **  Plikoener
+Day02 Part Two 26) 376 **  Plikoener
