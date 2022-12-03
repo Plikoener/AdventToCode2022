@@ -24,4 +24,13 @@ class ConvertUtilsTest {
         assertEquals("For input string: \""+errorInput.toCharArray()[0] +"\"",nfE.getMessage());
         //int [] errorOutput = ConvertUtils.convertStringToIntArray(errorInput);
     }
+
+    @Test
+    void splitStringInTheMiddle() {
+        String subStringA = "AAAA";
+        String subStringB = "BBBB";
+        String[] output = ConvertUtils.splitStringInTheMiddle(subStringA+subStringB);
+        assertArrayEquals( subStringA.toCharArray(),output[0].toCharArray());
+        assertArrayEquals( subStringB.toCharArray(),output[1].toCharArray());
+    }
 }

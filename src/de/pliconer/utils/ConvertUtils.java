@@ -13,4 +13,18 @@ public class ConvertUtils {
 
         return values;
     }
+
+    /***
+     *  You need to halves of a string with same size
+     * This method was implemented for AdventToCode2022 Day3 Part 2
+     * @param input A string that is to be split
+     * @return An array of size 2 containing the halves of the input
+     */
+    public static String[]splitStringInTheMiddle(String input)
+    {
+        String[] output = new String[2];
+        output[0] = input.substring(0,(input.length()/2));
+        output[1] = input.substring(input.length()/2);
+        return output;
+    }
 }
