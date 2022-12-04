@@ -36,6 +36,8 @@ class PlikoenerUtilsTest {
         //assertEquals(message, substring);
 
         // [2022-11-20T16:49:39.061212700Z][PlikoenerUtils]Test debugLog
+        //TODO Why sometime PlikoenerUtils is printed instead of the correct class name.
+        // I guess in case a call the debugLog from a method call from another method in the class
 
 
        String regex = "\\[\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6,9}Z]\\[PlikoenerUtils]" + message + endString;
