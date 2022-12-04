@@ -7,6 +7,10 @@ public class AdventToCodeInputLoader {
     protected String[] fileContent;
 
     public AdventToCodeInputLoader(String fileName) throws IOException {
+        if (fileName.isBlank())
+        {
+            return;
+        }
         if( !fileName.contains(File.separator))
         {
             fileName = "input"+File.separator+fileName;
