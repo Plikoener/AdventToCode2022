@@ -124,12 +124,6 @@ public class SupplyStack extends AdventToCodeInputLoader {
             stackOfCrates.get(command.getTargetStack() - 1).push(stackOfCrates.get(command.getSourceStack() - 1).pop());
     }
 
-    public static void main(String[] args) throws IOException {
-        SupplyStack supplyStackPart1 = new SupplyStack("Day05Input.txt");
-        System.out.println("Day04 Part 1: "+supplyStackPart1.getMessageAfterExecuteCommands());
-
-    }
-
     @Override
     public String toString() {
         StringBuilder output= new StringBuilder();
