@@ -40,6 +40,7 @@ public class ElvesHandheld extends AdventToCodeInputLoader {
                 Iterator<Character> markerChar = markerQueue.iterator();
                 while (markerChar.hasNext())
                 {
+                    markerChar.next();
                     if (false)
                         return charRead;
 
