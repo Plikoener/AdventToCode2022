@@ -12,6 +12,7 @@ public class Handheld implements PropertyChangeListener {
     final static boolean DEBUG = false;
     public static final int CYCLE_FACTOR = 20;
     CPU cpu;
+    CRT crt;
     String[] commandLines;
 
     public int getSumOfSignalStrength() {
@@ -24,6 +25,9 @@ public class Handheld implements PropertyChangeListener {
         this.cpu = new CPU();
         sumOfSignalStrength=0;
         cpu.addPropertyChangeListener(this);
+
+        crt = new CRT();
+        cpu.addPropertyChangeListener(crt);
 
     }
 
@@ -59,10 +63,11 @@ public class Handheld implements PropertyChangeListener {
             Integer signalStrength = (Integer) evt.getNewValue();
             sumOfSignalStrength = sumOfSignalStrength + signalStrength;
         }
-        if (evt.getPropertyName().equals(DRAW_CRT))
-        {
-            System.out.println(evt.getOldValue()+ " /// "+ evt.getNewValue());
-        }
+//        if (evt.getPropertyName().equals(DRAW_CRT))
+//        {
+//            System.out.println(evt.getOldValue()+ " /// "+ evt.getNewValue());
+//            System.out.println(crt);
+//        }
             System.out.println(evt.getPropertyName() + " get  " + evt.getNewValue());
 
     }

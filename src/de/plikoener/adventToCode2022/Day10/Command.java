@@ -60,7 +60,9 @@ public abstract class Command {
     }
     public void execute(CPU cpu)
     {
-        cpu.addClock(duration);
+
+        for(int tick=0;tick<duration;tick++)
+            cpu.addClock();
         PlikoenerUtils.debugLog(this +" auf "+ cpu, DEBUG);
 
     }

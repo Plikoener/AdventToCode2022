@@ -1,11 +1,14 @@
 package de.plikoener.adventToCode2022.Day10;
 
 import de.pliconer.utils.AdventToCodeInputLoader;
+import de.pliconer.utils.PlikoenerUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HandheldTest {
+
+    private String executingReturn;
 
     @Test
     void executeProgramm() {
@@ -13,6 +16,11 @@ class HandheldTest {
         executing(commandLines, 0);
         commandLines = AdventToCodeInputLoader.giveInPutFromFile("Day10Example.txt");
         executing(commandLines, 13140);
+        String[] testInput = AdventToCodeInputLoader.giveInPutFromFile("Day10PartTwoTest.txt");
+        String expected = new CRT().ArrayToString(testInput,System.lineSeparator());
+        boolean partTwoCheck= (expected.length() == executingReturn.length());
+
+        assertArrayEquals(expected.toCharArray(),executingReturn.toCharArray());
 
 
     }
@@ -23,7 +31,9 @@ class HandheldTest {
         handheld.executeProgramm();
         System.out.println(handheld.cpu);
         System.out.println(handheld.getSumOfSignalStrength());
+        boolean partTwoCheck=false;
         assertEquals(sumSignalStrength,handheld.getSumOfSignalStrength());
+        executingReturn = handheld.crt.toString();
     }
 
     @Test

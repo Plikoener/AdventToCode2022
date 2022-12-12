@@ -7,6 +7,8 @@ public class Day10 {
         {
             handheld.executeProgramm();
             System.out.println("Solution of Day10 Part One :" + handheld.getSumOfSignalStrength());
+            System.out.println("Solutionof Day10 Part Two:");
+            System.out.println(handheld.crt.toString());
         }
     }
 }

@@ -39,13 +39,21 @@ public class CPU {
     public void addClock(int cycles)
     {
         for(int tick=0;tick<cycles;tick++) {
-            clock++;
-            support.firePropertyChange(Handheld.DRAW_CRT,getClock(),getRegisterX());
-            if (lookingCycle()) {
-                PlikoenerUtils.debugLog(this.toString(),false);
-                Integer newSignalStrength = getSignalStrength();
-                support.firePropertyChange(Handheld.SIGNAL_STRENGTH,signalStrength,newSignalStrength);
-            }
+
+            addClock();
+        }
+
+    }
+
+    public void addClock() {
+        clock++;
+        System.out.println("new clock:"+clock);
+        support.firePropertyChange(Handheld.DRAW_CRT,getClock(),this);
+        if (lookingCycle()) {
+            PlikoenerUtils.debugLog(this.toString(),false);
+            Integer newSignalStrength = getSignalStrength();
+            support.firePropertyChange(Handheld.SIGNAL_STRENGTH,signalStrength,newSignalStrength);
+
         }
 
     }

@@ -6,3 +6,4 @@ Day04 Part One 27)  690 ****  Plikoener
 Day05 Part One 29)  789 *****  Plikoener
 Day05 Part Two 28)  884 ******  Plikoener
 Day10 Part One 31) 1093 **********  Plikoener
+Day10 Part Two 30) 1201 ************  Plikoener
