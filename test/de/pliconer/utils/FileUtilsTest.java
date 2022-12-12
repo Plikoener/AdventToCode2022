@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileUtilsTest {
@@ -42,4 +43,29 @@ class FileUtilsTest {
 
     }
 
+    @Test
+    void combineLines() {
+        String[]input={
+                "<book>",
+                "<title>Der Junge aus London</title>",
+                "<author>Noah Gordon</author>",
+                "</book>",
+                "<book>",
+                "<title>Die Brüder Löwenherz</title>",
+                "<author>Astrid Lindgren</author>",
+                "</book>"
+
+
+        };
+        String[][] output = FileUtils.combineLines(input,"<book>","</book>");
+        System.out.println(output.length);
+        int inputLineCounter=0;
+        for (String[] strings : output) {
+            for (int lineCounter = 0; lineCounter < output[0].length; lineCounter++) {
+                assertArrayEquals(input[inputLineCounter++].toCharArray(), strings[lineCounter].toCharArray());
+            }
+        }
+
+
+    }
 }
