@@ -64,13 +64,14 @@ public class FileUtils {
     {
         ArrayList<String[]> output = new ArrayList<>();
         ArrayList<String> combineLines = new ArrayList<>();
-        for (String inputLine:input
-             ) {
-            if(inputLine.matches(startPattern))
+        for (int counter=0;counter<input.length;counter++)
+              {
+            String inputLine = input[counter];
+            if(inputLine.matches(startPattern) )
             {
                 combineLines.clear();
                 combineLines.add(inputLine);
-            } else if (inputLine.matches(stopPattern)) {
+            } else if (inputLine.matches(stopPattern) || counter+1 == input.length) {
                 combineLines.add(inputLine);
 
                 String[] outputEntry =  combineLines.toArray(new String[0]);
@@ -82,6 +83,18 @@ public class FileUtils {
 
         }
         //return (String[][]) output.toArray();
-        return  output.toArray(new String[output.size()][output.get(0).length]);
+        int maxArrayLength = maxArrayLength(output);
+        return  output.toArray(new String[output.size()][maxArrayLength]);
+    }
+
+    private static int maxArrayLength(ArrayList<String[]> array) {
+
+        int maxLength=0;
+        for (String[] arrayElement:array
+             ) {
+            maxLength = Math.max(maxLength,arrayElement.length);
+
+        }
+        return maxLength;
     }
 }
