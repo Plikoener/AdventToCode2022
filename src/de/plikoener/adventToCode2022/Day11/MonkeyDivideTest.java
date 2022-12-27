@@ -1,7 +1,21 @@
 package de.plikoener.adventToCode2022.Day11;
 
 public class MonkeyDivideTest {
-     public static boolean isValidTest(String[] inputLines)
+    int divisor;
+    String trueMonkeyReceiverString ;
+    String falseMonkeyReceiverString ;
+
+    public MonkeyDivideTest(String[] strings) {
+        String[]divisorValue =strings[0].split("Test:\sdivisible\sby\s");
+//        System.out.println(divisorValue.length);
+        divisor = Integer.parseInt(divisorValue[1]);
+        trueMonkeyReceiverString =  (strings[1].trim()).split("If\strue:\sthrow\sto\s")[1];
+        falseMonkeyReceiverString =  (strings[2].trim()).split("If\sfalse:\sthrow\sto\s")[1];
+
+
+    }
+
+    public static boolean isValidTest(String[] inputLines)
     {
         if (inputLines.length != 3)
             return false;
@@ -12,5 +26,16 @@ public class MonkeyDivideTest {
         result = result &&  (inputLines[2].trim()).matches( "If\sfalse:\sthrow\sto\smonkey\s\\d+");
 
         return result;
+    }
+    public String [] getReceiverString()
+    {
+        return new String[]{trueMonkeyReceiverString, falseMonkeyReceiverString};
+    }
+
+    public String execute(int item) {
+        if(item % divisor == 0)
+            return trueMonkeyReceiverString;
+        else
+            return falseMonkeyReceiverString;
     }
 }
