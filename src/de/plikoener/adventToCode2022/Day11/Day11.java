@@ -8,7 +8,8 @@ public class Day11 {
         System.out.println("############################################");
         MonkeyInTheMiddle part2 = new MonkeyInTheMiddle("Day11Input.txt");
         part2.changeParameterForPartTwo();
-        part2.playRounds(1000);
+        part2.playRounds(10000);
+        System.out.println(part2.getMonkeyBusiness());
 
     }
 }

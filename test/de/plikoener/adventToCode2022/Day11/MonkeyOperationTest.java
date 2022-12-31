@@ -57,6 +57,13 @@ class MonkeyOperationTest {
 
 
     }
+    @Test
+    void executeWithLongParameter()
+    {
+        long number =10L;
+        assertEquals(190,monkeyOperation.execute(number));
+        assertEquals(190,monkeyOperation.execute(10));
+    }
 
     @Test
     void parseOperand() {

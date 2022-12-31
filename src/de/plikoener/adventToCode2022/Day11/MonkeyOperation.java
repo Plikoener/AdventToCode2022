@@ -1,7 +1,5 @@
 package de.plikoener.adventToCode2022.Day11;
 
-import jdk.jshell.JShell;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -35,6 +33,15 @@ public class MonkeyOperation {
         } else {
             return Integer.parseInt(operatorString);
         }
+    }
+    static long parseOperand(String operatorString, long oldValue)
+    {
+        if (operatorString.equals("old")) {
+            return oldValue;
+        } else {
+            return Long.parseLong(operatorString);
+        }
+
     }
 
     public int executeWithScriptEngine(int itemValue) {
@@ -85,6 +92,17 @@ public class MonkeyOperation {
             return Math.multiplyExact(factor1 , factor2);
         } else {
             return parseOperand(operand1, itemValue) + parseOperand(operand2, itemValue);
+        }
+
+    }
+    public long execute(long itemValue)
+    {
+        if (operator.equals("*")) {
+            long factor1 = parseOperand(operand1, itemValue);
+            long factor2 = parseOperand(operand2, itemValue);
+            return Math.multiplyExact(factor1 , factor2);
+        } else {
+            return Math.addExact(parseOperand(operand1, itemValue),( parseOperand(operand2, itemValue)));
         }
 
     }

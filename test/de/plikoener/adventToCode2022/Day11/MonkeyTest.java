@@ -2,7 +2,6 @@ package de.plikoener.adventToCode2022.Day11;
 
 import de.pliconer.utils.AdventToCodeInputLoader;
 import de.pliconer.utils.FileUtils;
-import de.pliconer.utils.PlikoenerUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,7 +52,7 @@ class MonkeyTest {
     @Test
     void setItems() {
         String input = "  Starting items: 79, 98";
-        Monkey monkey = new Monkey(new String[]{input, input});
+        Monkey monkey = new Monkey(monkeysData[0]);
         monkey.setItems(input);
         assertEquals(79,monkey.items.get(0));
     }
@@ -101,11 +100,11 @@ class MonkeyTest {
                 System.out.println("Diff :\""+getDifferencesBetweenString(expectData.toString(),actualData.toString())+"\"");
                 System.out.println(expectData.toString().toCharArray().length+ " length "+ actualData.toString().toCharArray().length);
                 System.out.println("expected:"+System.lineSeparator()+expectData);
-                System.out.println("acutal:"+System.lineSeparator()+actualData);
+                System.out.println("actual:"+System.lineSeparator()+actualData);
                 boolean equals = expectData.toString().trim().equals(actualData.toString().trim());
                 System.out.println (equals);
                 assertTrue (equals);
-                 for (Integer item: monkey.items
+                 for (long item: monkey.items
                      ) {
                     System.out.println(item+ " of "+ monkey.name);
 
@@ -122,7 +121,6 @@ class MonkeyTest {
     String getDifferencesBetweenString(String input1, String input2)
     {
         StringBuilder compare = new StringBuilder();
-        int i = Math.max(1,2);
         int minLength = Math.min(input1.length(),input2.length());
         int maxLength = Math.max(input1.length(),input2.length());
 

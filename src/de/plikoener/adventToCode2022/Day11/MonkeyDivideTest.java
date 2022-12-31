@@ -5,6 +5,10 @@ public class MonkeyDivideTest {
     String trueMonkeyReceiverString ;
     String falseMonkeyReceiverString ;
 
+    public int getDivisor() {
+        return divisor;
+    }
+
     public MonkeyDivideTest(String[] strings) {
         String[]divisorValue =strings[0].split("Test:\sdivisible\sby\s");
 //        System.out.println(divisorValue.length);
@@ -32,8 +36,10 @@ public class MonkeyDivideTest {
         return new String[]{trueMonkeyReceiverString, falseMonkeyReceiverString};
     }
 
-    public String execute(int item) {
+    public String execute(long item) {
+
         if(item % divisor == 0)
+            //(item.mod(BigInteger.valueOf(divisor))).equals(BigInteger.valueOf(0)))
             return trueMonkeyReceiverString;
         else
             return falseMonkeyReceiverString;

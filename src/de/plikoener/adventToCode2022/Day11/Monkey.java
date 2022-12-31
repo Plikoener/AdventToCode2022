@@ -1,12 +1,8 @@
 package de.plikoener.adventToCode2022.Day11;
 
 import de.pliconer.utils.FileUtils;
+import de.pliconer.utils.OnlyTestCase;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Locale;
 
@@ -18,21 +14,42 @@ Monkey 0:
     If true: throw to monkey 2
     If false: throw to monkey 3
 */
-public class Monkey implements PropertyChangeListener, Comparable<Monkey>
+public class Monkey implements Comparable<Monkey> // , PropertyChangeListener
 {
     private static final int BORED_DIVISOR = 3;
     int boredDivisor;
+    @OnlyTestCase
+    public void setShouldKeepWorryLevelManageable(boolean shouldKeepWorryLevelManageable) {
+        this.shouldKeepWorryLevelManageable = shouldKeepWorryLevelManageable;
+    }
+
+    /**
+     * It is only use for MonkeyInTheMiddleTest.compareFirstSomeRoundsOfPartTwo
+     */
+    @OnlyTestCase
+    private boolean shouldKeepWorryLevelManageable;
+
+    public LinkedList<Long> getItems() {
+        return items;
+    }
 
     public String getName() {
         return name;
     }
 
     String name;
-    LinkedList<Integer> items ;
+    LinkedList<Long> items ;
     MonkeyOperation operation;
     MonkeyDivideTest divideTest;
     int inspectedItemsCounter;
-    private final PropertyChangeSupport support;
+
+    public void setCommonMultiple(long commonMultiple) {
+        this.commonMultiple = commonMultiple;
+    }
+
+    long commonMultiple;
+    LinkedList<ThrownItem>allThrownItems;
+//    private final PropertyChangeSupport support;
 
     public int getInspectedItemsCounter() {
         return inspectedItemsCounter;
@@ -58,26 +75,27 @@ public class Monkey implements PropertyChangeListener, Comparable<Monkey>
         
         
     }
-    public void addPropertiesChangeListeners(Monkey[]monkeys)
-    {
-        for (Monkey monkey:monkeys) {
-            this.addPropertyChangeListener(monkey);
-        }
-    }
+//    public void addPropertiesChangeListeners(Monkey[]monkeys)
+//    {
+//        for (Monkey monkey:monkeys) {
+//            this.addPropertyChangeListener(monkey);
+//        }
+//    }
     void setItems(String itemsLine)
     {
         String valuePart = FileUtils.splitInToken(itemsLine,":")[1];
         String[]values = FileUtils.splitInToken(valuePart,",");
         for (String value:values
              ) {
-            items.addLast(Integer.parseInt(value.trim()));
+            long l = Long.parseLong(value.trim());
+            items.addLast(l);
 
         }
 
         //String valuesPart = itemsLine.substring(itemsLine.indexOf(":"));
 
     }
-    public void catchItem(int item)
+    public void catchItem(long item)
     {
         items.addLast(item);
     }
@@ -100,47 +118,63 @@ public class Monkey implements PropertyChangeListener, Comparable<Monkey>
         result = result && MonkeyDivideTest.isValidTest(new String[]{inputLines[3],inputLines[4],inputLines[5]});
         return result;
     }
-    public String getPropertyChangeKey()
+    public String getIdentifierName()
     {
         return name.toLowerCase(Locale.ROOT);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Monkey.propertyChange...");
-        if (evt.getPropertyName().equals(getPropertyChangeKey()))
-        {
-
-            Integer[] sendItem =(Integer[]) evt.getNewValue();
-            for (Integer item:sendItem
-                 ) {
-                items.addLast(item);
-
-            }
-        }
-    }
-    public void addPropertyChangeListener(PropertyChangeListener pcl){
-        support.addPropertyChangeListener(pcl);
-    }
-    public void removePropertyChangeListener(PropertyChangeListener pcl) {
-        support.removePropertyChangeListener(pcl);
-
-    }
     public ThrownItem[] doTurn()
     {
         ThrownItem[] thrownItems = new ThrownItem[items.size()];
         int itemCount=0;
         while (!items.isEmpty())
         {
-            Integer item = items.pop();
+            long item = items.pop();
 //            item = operation.execute(item);
             item = operation.execute(item);
-            item = item / boredDivisor;
+
+
+            if (boredDivisor == BORED_DIVISOR) {
+
+                item = item / boredDivisor;
+                //item = Math.floorDiv(item,boredDivisor);
+
+            }else
+            {
+                item = keepWorryLevelManageable(item);
+            }
             thrownItems[itemCount++] = new ThrownItem(item,divideTest.execute(item));
+//            System.out.println(thrownItems[itemCount-1].toSuperString());
             inspectedItemsCounter++;
         }
        return thrownItems;
 
+    }
+
+    /**
+     *
+     * @see <a href="https://github.com/JeremyX9/adventofcode-22/blob/ff96f2a1bf2b5bebd2c0e99a4ddbbca9bbecad5c/Day-11/java/stebach/Day11.java#L211">Day11 Solution in Java from stebach</a>
+     * @param item the value of the item
+     * @return the value of the item after manipulation
+     */
+    private long keepWorryLevelManageable(long item) {
+        //                int divisor = Integer.MAX_VALUE; //divideTest.getDivisor();
+        if (!shouldKeepWorryLevelManageable)
+            return item;
+        long beforeCheckItem = item;
+
+        if(item % commonMultiple == 0) //item.mod(BigInteger.valueOf(divisor)).equals(BigInteger.valueOf(0)))
+        {
+            item = commonMultiple;//BigInteger.valueOf(divisor);
+        }else {
+            item = item % commonMultiple;
+            //item.mod(BigInteger.valueOf(divisor));
+        }
+        if (!(beforeCheckItem == item))
+        {
+            System.out.println(name+ " item value has changed from "+beforeCheckItem+" to "+ item);
+        }
+        return item;
     }
 
     public String[] getKeyOfRelatedMonkeys()
@@ -157,7 +191,7 @@ public class Monkey implements PropertyChangeListener, Comparable<Monkey>
             return name+": ";
         }
 
-        for (Integer item:items
+        for (long item:items
              ) {
             itemStrings.append(item).append(", ");
 
@@ -210,16 +244,21 @@ public class Monkey implements PropertyChangeListener, Comparable<Monkey>
 
     public Monkey(String name) {
         this.name = name;
-        support = new PropertyChangeSupport(this);
+//         support = new PropertyChangeSupport(this);
         boredDivisor = BORED_DIVISOR;
+        shouldKeepWorryLevelManageable=true;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Monkey)
         {
-            return((Monkey)obj).getPropertyChangeKey().equals(this.getPropertyChangeKey());
+            return((Monkey)obj).getIdentifierName().equals(this.getIdentifierName());
         }
         return false;
+    }
+    public int getDivideTestDivisor()
+    {
+        return divideTest.getDivisor();
     }
 }
