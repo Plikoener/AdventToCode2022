@@ -78,6 +78,13 @@ public class CampCleanUp extends AdventToCodeInputLoader {
         return String.valueOf(input).repeat(Math.max(0, muliplyFactor));
     }
 
+    /**
+     * expand an input with given start and end numbers of to ranges to announced ranges
+     * @param inputLine the input with syntax
+     *                  <pre> &lt;StartNumberOfFirstRange&gt;-&lt;StopNumberOfFirstRange&gt;,&lt;StartNumberOfSecondRange&gt;-&lt;StopNumberOfSecondRange&gt;,
+     *                      </pre>
+     * @return the announced two ranges as String Array
+     */
     String[] convertInputIntoRangeArray(String inputLine) {
         String[] rangeNotation = FileUtils.splitInToken(inputLine, ",");
 
@@ -88,6 +95,13 @@ public class CampCleanUp extends AdventToCodeInputLoader {
 
         return rangeMap;
     }
+    /**
+     * expand an input with given start and end numbers of to ranges to announced ranges
+     * @param inputLine the input with syntax
+     *                  <pre> &lt;StartNumberOfFirstRange&gt;-&lt;StopNumberOfFirstRange&gt;,&lt;StartNumberOfSecondRange&gt;-&lt;StopNumberOfSecondRange&gt;,
+     *                      </pre>
+     * @return the announced two ranges as int Array
+     */
     int[][] convertInputIntoRangeArrayAsInt(String inputLine) {
 
         String[]partsOfLine = FileUtils.splitInToken(inputLine,",");
@@ -136,6 +150,11 @@ public class CampCleanUp extends AdventToCodeInputLoader {
         System.out.println("ende "+wrongResultOfPart1);
     }
 
+    /**
+     * This was the first try to solute part two
+     *
+     * @return number of founded pairs
+     */
     public   int countPairsFullyRangeWithStringContains() {
         int countFullRangeEachOtherPairs = 0;
         for (String inputLine : fileContent
@@ -158,6 +177,7 @@ public class CampCleanUp extends AdventToCodeInputLoader {
         }
         return countFullRangeEachOtherPairs;
     }
+
 
 
 }
