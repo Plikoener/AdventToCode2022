@@ -2,6 +2,7 @@ package de.pliconer.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class AdventToCodeInputLoader {
     protected String[] fileContent;
@@ -17,4 +18,19 @@ public class AdventToCodeInputLoader {
         }
         fileContent = FileUtils.loadLineFromFile(fileName);
     }
+    public static String[] giveInPutFromFile(String fileNameStatic)
+    {
+        String[] output;
+
+        try {
+            AdventToCodeInputLoader loader = new AdventToCodeInputLoader(fileNameStatic);
+            return loader.fileContent;
+        } catch (IOException e) {
+            System.err.println("File not found a minimal example is given back...");
+            output = new String[]{""};
+
+        }
+        return output;
+    }
+
 }
