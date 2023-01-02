@@ -44,7 +44,7 @@ class CampCleanUpTest {
 
     @Test
     void convertInputIntoRangeArrayAsInt() {
-        
+
         String inputLine = "1-9,3-7";
         int [][] output = campCleanUp.convertInputIntoRangeArrayAsInt(inputLine);
         System.out.println(Arrays.toString(output[0]));
