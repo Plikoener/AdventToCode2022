@@ -44,13 +44,43 @@ class CampCleanUpTest {
 
     @Test
     void convertInputIntoRangeArrayAsInt() {
-        int [][] output = campCleanUp.convertInputIntoRangeArrayAsInt("1-2,3-4");
+
+        String inputLine = "1-9,3-7";
+        int [][] output = campCleanUp.convertInputIntoRangeArrayAsInt(inputLine);
         System.out.println(Arrays.toString(output[0]));
         System.out.println(Arrays.toString(output[1]));
+        for (int lineOneElement : output[0]) {
+            assertTrue(
+                    lineOneElement >= Integer.parseInt(inputLine.substring(0,1)) &&
+                    lineOneElement <= Integer.parseInt(inputLine.substring(2,3))
+            );
+        }        for (int lineTwoElement : output[1]) {
+            assertTrue(
+                    lineTwoElement >= Integer.parseInt(inputLine.substring(4,5)) &&
+                    lineTwoElement <= Integer.parseInt(inputLine.substring(6,7))
+            );
+        }
+
+
+
     }
 
     @Test
     void geMultiplyString() {
         assertArrayEquals("AAAAA".toCharArray(),campCleanUp.geMultiplyString("A",5).toCharArray());
+    }
+
+    @Test
+    void countPairsDoTheRangeOverlap() {
+        assertEquals(4,campCleanUpExample.countPairsDoTheRangeOverlap());
+
+
+    }
+
+    @Test
+    void getNumberSeriesAsArrayFromRangeArray() {
+        int[]expected1= {4,5,6,7,8};
+        int[]input1 = {4,8};
+        assertArrayEquals(expected1,CampCleanUp.getNumberSeriesAsArrayFromRangeArray(input1));
     }
 }

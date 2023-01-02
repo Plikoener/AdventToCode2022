@@ -2,6 +2,8 @@ package de.plikoener.adventToCode2022.Day04;
 
 import de.pliconer.utils.AdventToCodeInputLoader;
 import de.pliconer.utils.FileUtils;
+import org.geeksforgeeks.findOverlappingSumOfTwoArrays.GFG;
+
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -78,6 +80,13 @@ public class CampCleanUp extends AdventToCodeInputLoader {
         return String.valueOf(input).repeat(Math.max(0, muliplyFactor));
     }
 
+    /**
+     * expand an input with given start and end numbers of to ranges to announced ranges
+     * @param inputLine the input with syntax
+     *                  <pre> &lt;StartNumberOfFirstRange&gt;-&lt;StopNumberOfFirstRange&gt;,&lt;StartNumberOfSecondRange&gt;-&lt;StopNumberOfSecondRange&gt;,
+     *                      </pre>
+     * @return the announced two ranges as String Array
+     */
     String[] convertInputIntoRangeArray(String inputLine) {
         String[] rangeNotation = FileUtils.splitInToken(inputLine, ",");
 
@@ -88,6 +97,13 @@ public class CampCleanUp extends AdventToCodeInputLoader {
 
         return rangeMap;
     }
+    /**
+     * expand an input with given start and end numbers of to ranges to announced ranges
+     * @param inputLine the input with syntax
+     *                  <pre> &lt;StartNumberOfFirstRange&gt;-&lt;StopNumberOfFirstRange&gt;,&lt;StartNumberOfSecondRange&gt;-&lt;StopNumberOfSecondRange&gt;,
+     *                      </pre>
+     * @return the announced two ranges as int Array
+     */
     int[][] convertInputIntoRangeArrayAsInt(String inputLine) {
 
         String[]partsOfLine = FileUtils.splitInToken(inputLine,",");
@@ -130,12 +146,14 @@ public class CampCleanUp extends AdventToCodeInputLoader {
         System.out.println("Before write every number of a range in a String and compared them."
                  + "(I don't seen that for example a 3 contain in 30 31 32 ...)"
                 + " ...with the result ");
-        int wrongResultOfPart1 = campCleanUpPart1.countPairsFullyRangeWithStringContains();
-        System.out.println();
-        System.out.println(" "+wrongResultOfPart1);
-        System.out.println("ende "+wrongResultOfPart1);
+        System.out.println("Day04 Part 2: " + campCleanUpPart1.countPairsDoTheRangeOverlap());
     }
 
+    /**
+     * This was the first try to solute part two
+     *
+     * @return number of founded pairs
+     */
     public   int countPairsFullyRangeWithStringContains() {
         int countFullRangeEachOtherPairs = 0;
         for (String inputLine : fileContent
@@ -158,6 +176,42 @@ public class CampCleanUp extends AdventToCodeInputLoader {
         }
         return countFullRangeEachOtherPairs;
     }
+
+    /**
+     *
+     * @return sum of Pairs, which have some numbers common
+     */
+    public int countPairsDoTheRangeOverlap()
+    {
+        int countPairsDoTheRangeOverlap = 0;
+        for (String inputLine : fileContent)
+        {
+            int[][]pairsRange = convertInputIntoRangeArrayAsInt(inputLine);
+            int[]fullRange0 = CampCleanUp.getNumberSeriesAsArrayFromRangeArray(pairsRange[0]);
+            int[]fullRange1 = CampCleanUp.getNumberSeriesAsArrayFromRangeArray(pairsRange[1]);
+
+           if(GFG.findSum(fullRange0,fullRange1,Math.max(fullRange0.length,fullRange1.length))>0)
+               countPairsDoTheRangeOverlap++;
+
+
+        }
+
+        return countPairsDoTheRangeOverlap;
+    }
+    public static int[] getNumberSeriesAsArrayFromRangeArray(int[]range)
+    {
+        int[] output = new int[range[1]-range[0]+1];
+        int count=0;
+
+        for (int rangeNumber = range[0]; rangeNumber <= range[1]; rangeNumber++) {
+            output[count++]=rangeNumber;
+        }
+        return output;
+    }
+
+
+
+
 
 
 }
