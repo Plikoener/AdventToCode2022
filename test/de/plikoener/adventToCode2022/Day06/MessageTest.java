@@ -14,4 +14,10 @@ class MessageTest {
         assertEquals(10,new Message("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg").findEndPositionOfMarker());
         assertEquals(11,new Message("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw").findEndPositionOfMarker());
     }
+
+    @Test
+    void findEndPositionOfMarker() {
+
+        assertEquals(19,new Message("mjqjpqmgbljsphdztnvjfqwrcgsmlb").findEndPositionOfMarker(MessageMarker.MESSAGE_MARKERS_LENGTH));
+    }
 }

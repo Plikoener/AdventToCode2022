@@ -5,15 +5,23 @@ import de.pliconer.utils.PlikoenerUtils;
 import java.util.Stack;
 
 public class MessageMarker {
-    public static final int MARKERS_LENGTH = 4;
+    public static final int PACKET_MARKERS_LENGTH = 4;
+    public static final int MESSAGE_MARKERS_LENGTH = 14;
+
+    int markerLength;
     final  static boolean DEBUG = false;
     String markerCandidate;
 
     public MessageMarker(String markerCandidate) {
         this.markerCandidate = markerCandidate;
         PlikoenerUtils.debugLog(markerCandidate,DEBUG);
+        markerLength = PACKET_MARKERS_LENGTH;
     }
-
+    public MessageMarker(String markerCandidate,int markersLength)
+    {
+        this(markerCandidate);
+        this.markerLength = markersLength;
+    }
     public boolean isMarker() {
 
         if (!isCorrectMarkerLength()) {
@@ -35,6 +43,6 @@ public class MessageMarker {
     }
     boolean isCorrectMarkerLength()
     {
-        return MARKERS_LENGTH == markerCandidate.length();
+        return markerLength == markerCandidate.length();
     }
 }
